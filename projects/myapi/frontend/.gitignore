@@ -11,13 +11,12 @@ node_modules
 dist
 dist-ssr
 *.local
-
+myapi.db
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
 .DS_Store
-.db
 *.suo
 *.ntvs*
 *.njsproj
