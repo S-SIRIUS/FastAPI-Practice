@@ -2,6 +2,8 @@
     import fastapi from "../lib/api"
     import {link} from 'svelte-spa-router' //a태그에 use:link 속성을 사용하기 위함
     import { page } from "../lib/store"
+    import moment from 'moment/min/moment-with-locales'
+    moment.locale('ko')
 
     let question_list = []
     let size = 10
@@ -37,11 +39,11 @@
         <tbody>
         {#each question_list as question, i}
         <tr>
-            <td>{i+1}</td>
+            <td>{ total - ($page * size) - i }</td>
             <td>
                 <a use:link href="/detail/{question.id}">{question.subject}</a>
             </td>
-            <td>{question.create_date}</td>
+            <td>{moment(question.create_date).format("YYYY년 MM월 DD일 hh:mm a")}</td>
         </tr>
         {/each}
         </tbody>
