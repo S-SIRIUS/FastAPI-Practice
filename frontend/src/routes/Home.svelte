@@ -1,7 +1,7 @@
 <script>
     import fastapi from "../lib/api"
     import {link} from 'svelte-spa-router' //a태그에 use:link 속성을 사용하기 위함
-    import { page } from "../lib/store"
+    import { page, is_login } from "../lib/store"
     import moment from 'moment/min/moment-with-locales'
     moment.locale('ko')
 
@@ -73,5 +73,5 @@
     </ul>
     <!-- 페이징처리 끝 -->
 
-    <a use:link href="/question-create" class="btn btn-primary">질문 등록하기</a>
+    <a use:link href="/question-create" class="btn btn-primary {$is_login ? '' : 'disabled'}">질문 등록하기</a>
 </div>

@@ -1,30 +1,34 @@
 <script>
-    import {push} from 'svelte-spa-router'
+    import { push } from 'svelte-spa-router'
     import fastapi from "../lib/api"
-    import Error from "../components/Error.svelte"
+    import Error from "../components/Error.svelte"    
 
-    // store 변수
     import { access_token, username, is_login } from "../lib/store"
+
 
     let error = {detail:[]}
     let login_username = ""
     let login_password = ""
 
-    function login(event){
+    function login(event) {
         event.preventDefault()
         let url = "/api/user/login"
         let params = {
-            username : login_username,
-            password : login_password,
+            username: login_username,
+            password: login_password,
         }
-        fastapi('login', url, params, (json) =>{ 
-            $access_token = json.access_token
-            $username = json.username
-            $is_login = true
-            push("/") 
-        }, (json_error)=>{error = json_error})
+        fastapi('login', url, params, 
+            (json) => {
+                $access_token = json.access_token
+                $username = json.username
+                $is_login = true
+                push("/")
+            },
+            (json_error) => {
+                error = json_error
+            }
+        )
     }
-
 </script>
 
 <div class="container">

@@ -6,6 +6,9 @@ from database import get_db
 from domain.answer import answer_schema, answer_crud
 from domain.question import question_crud
 
+from domain.user.user_router import get_current_user
+from models import User
+
 router = APIRouter(
     prefix = "/api/answer",
 )
@@ -13,7 +16,8 @@ router = APIRouter(
 @router.post("/create/{question_id}", status_code = status.HTTP_204_NO_CONTENT)
 def answer_create(question_id:int ,
                   _answer_create:answer_schema.AnswerCreate,
-                  db: Session = Depends(get_db)):
+                  db: Session = Depends(get_db),
+                  current_user: User = Depends(get_current_user)):
 
     # question_id로 question 값 가져오기
     question = question_crud.get_question(db, question_id = question_id)
@@ -21,4 +25,4 @@ def answer_create(question_id:int ,
         raise HTTPException(status_code=404, detail="Question not found")
 
     # 가져온 question과 answer로 db에 삽입
-    answer_crud.create_answer(db, question=question, answer_create=_answer_create)
+    answer_crud.create_answer(db, question=question, answer_create=_answer_create, user=current_user)
