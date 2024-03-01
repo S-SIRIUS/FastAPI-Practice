@@ -13,6 +13,8 @@ class Question(Base):
     user_id = Column(Integer, ForeignKey("user.id"), nullable=True)
     user = relationship("User", backref="question_users")
 
+    modify_date = Column(DateTime, nullable=True)
+
 class Answer(Base):
     __tablename__ = "answer"
     id = Column(Integer, primary_key = True)
@@ -23,6 +25,8 @@ class Answer(Base):
 
     user_id = Column(Integer, ForeignKey("user.id"), nullable=True)
     user = relationship("User", backref="answer_users")
+
+    modify_date = Column(DateTime, nullable=True)
 
 class User(Base):
     __tablename__ = "user"

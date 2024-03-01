@@ -1,5 +1,8 @@
 from pydantic import BaseModel, field_validator
 import datetime
+from domain.user.user_schema import User
+
+
 class AnswerCreate(BaseModel):
     content : str
 
@@ -12,3 +15,12 @@ class Answer(BaseModel):
     id: int
     content : str
     create_date : datetime.datetime
+    user: User | None
+    question_id: int
+    modify_date: datetime.datetime | None = None
+
+class AnswerUpdate(AnswerCreate):
+    answer_id: int
+
+class AnswerDelete(BaseModel):
+    answer_id: int
